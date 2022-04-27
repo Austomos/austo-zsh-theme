@@ -132,28 +132,12 @@ open_github() {
 # Git prompt, essentially the same from agnoster
 
 prompt_git() {
-    # local color ref status ret
     local color ref
-    # is_dirty() {
-    #     if [[ -n "$(git rev-parse --show-toplevel)" ]]; then
-    #         ret="$(git status --porcelain --ignore-submodules)"
-    #     else
-    #         ret="aaa"
-    #     fi
-    #     test -n "$ret"
-    # }
     is_dirty() {
       test -n "$(git status --porcelain --ignore-submodules)"
     }
     ref="$vcs_info_msg_0_"
     if [[ -n "$ref" ]]; then
-        # if is_dirty; then
-        #     color=yellow
-        #     ref="${ref} $PLUSMINUS"
-        # else
-        #     color=green
-        #     ref="${ref} "
-        # fi
         if [[ "${ref/.../}" == "$ref" ]]; then
             shortref=$(shorten_git $ref)
             ref="$BRANCH $shortref"
@@ -169,35 +153,10 @@ prompt_git() {
             color=green
             ref="${ref} "
         fi
-        # prompt_segment $color 235
         prompt_segment $color $PRIMARY_FG
         print -n " $ref "
     fi
 }
-
-# prompt_git() {
-#   local color ref
-#   is_dirty() {
-#     test -n "$(git status --porcelain --ignore-submodules)"
-#   }
-#   ref="$vcs_info_msg_0_"
-#   if [[ -n "$ref" ]]; then
-#     if is_dirty; then
-#       color=yellow
-#       ref="${ref} $PLUSMINUS"
-#     else
-#       color=green
-#       ref="${ref} "
-#     fi
-#     if [[ "${ref/.../}" == "$ref" ]]; then
-#       ref="$BRANCH $ref"
-#     else
-#       ref="$DETACHED ${ref/.../}"
-#     fi
-#     prompt_segment $color $PRIMARY_FG
-#     print -n " $ref"
-#   fi
-# }
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
